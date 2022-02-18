@@ -1,0 +1,12 @@
+{
+  "name": "ws-server",
+  "version": "0.1.0",
+  "description": "weather station server",
+  "main": "app.js",
+  "author": "tsmx <dev@tsmx.net>",
+  "license": "MIT",
+  "dependencies": {
+    "@tsmx/weather-tools": "^1.0.0",
+    "express": "^4.17.2"
+  }
+}
