@@ -1,5 +1,6 @@
 const express = require('express');
 const wt = require('@tsmx/weather-tools');
+const weatherdata = require('./schemas/weatherdata');
 
 var app = express();
 
@@ -14,7 +15,7 @@ app.get('/data', (req, res) => {
     res.sendStatus(200);
 });
 
-app.post('/data', (req, res) => {
+app.post('/data', async (req, res) => {
     console.log(new Date().toISOString(), 'POST /data called from', req.ip, 'data:', JSON.stringify(req.body));
     const wind = wt.mphToKmh(req.body.windspeedmph);
     const temp = wt.fahrenheitToCelsius(req.body.tempf);
@@ -28,6 +29,9 @@ app.post('/data', (req, res) => {
     console.log('Taupunkt:            ' + roundToOne(dewPoint));
     console.log('Windrichtung:        ' + direction);
     console.log('Hitzeindex:          ' + Math.round(heatIndex));
+    wd = new weatherdata();
+    wd.tempf = req.body.tempf;
+    await wd.save();
     res.sendStatus(200);
 });
 
