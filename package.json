@@ -6,7 +6,10 @@
   "author": "tsmx <dev@tsmx.net>",
   "license": "MIT",
   "dependencies": {
+    "@tsmx/secure-config": "^2.0.0",
     "@tsmx/weather-tools": "^1.0.0",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "mongoose": "^6.2.2",
+    "winston": "^3.6.0"
   }
 }
