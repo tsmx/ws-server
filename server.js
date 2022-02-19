@@ -1,7 +1,5 @@
 const express = require('express');
 const wt = require('@tsmx/weather-tools');
-const logger = require('./utils/logging').logger;
-const db = require('./utils/db');
 
 var app = express();
 
@@ -33,9 +31,4 @@ app.post('/data', (req, res) => {
     res.sendStatus(200);
 });
 
-db.connect(() => {
-    logger.info('Connected to MongoDB');
-    app.listen(3000, () => {
-        logger.info('ws-server listening on port 3000...');
-    });
-});
+module.exports = app;
