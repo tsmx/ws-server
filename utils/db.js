@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 const logger = require('./logging').logger;
-const dbconfig = require('../conf/config').database;
+const dbconfig = require('../conf/config').db;
 
 const dbURI = dbconfig.protocol + '://' + dbconfig.server + (dbconfig.port ? (':' + dbconfig.port) : ('')) + '/' + dbconfig.database;
 const dbOptions = {

@@ -1,5 +1,5 @@
 var mongoose = require('../utils/db').mongoose;
-const dbconfig = require('../conf/config').database;
+const dbconfig = require('../conf/config').db;
 
 var weatherdata = mongoose.Schema({
     date: { type: Date, default: Date.now, index: true },

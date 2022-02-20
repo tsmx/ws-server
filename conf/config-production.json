@@ -1,0 +1,12 @@
+{
+  "name": "PROD",
+  "db": {
+    "protocol": "mongodb+srv",
+    "server": "ENCRYPTED|0e93c5df6306b6a057c8f5c9d5acb3b0|a46c13717bfbc9d0358737eaa4a84f663d123718def1bfcb486fecf5cb29b19e4f489396343a2687ccc0dcdfd5f14a48",
+    "database": "ENCRYPTED|66a871eb2dc7d52940b68b284ee9a356|4536f8c7ef4e65397515ebf4d2cb5944",
+    "collection": "data",
+    "options": "",
+    "user": "ENCRYPTED|deeae724fca0df546a5296cecdf8da8a|0d058e64e525044584760cdefad3ecd0",
+    "password": "ENCRYPTED|10db2f153b8e8f8648816f51a385b65d|9ac12755ed587c945d9fa3210dd9552b5ee8caea35f4fa5a40b8dce025aadfbe"
+  }
+}
