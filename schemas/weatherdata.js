@@ -28,7 +28,7 @@ var weatherdata = mongoose.Schema({
     rainWeeklyIn: Number,
     rainMonthlyIn: Number,
     rainYearlyIn: Number,
-    raintotalIn: Number
+    rainTotalIn: Number
 });
 
 module.exports = mongoose.model('weatherdata', weatherdata, dbconfig.collection); 

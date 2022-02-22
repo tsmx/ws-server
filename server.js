@@ -1,12 +1,9 @@
 const express = require('express');
-const wt = require('@tsmx/weather-tools');
-const weatherdata = require('./schemas/weatherdata');
+const persist = require('./functions/persist');
+const { roundToOne } = require('./utils/numbers');
+const { logger } = require('./utils/logging');
 
 var app = express();
-
-function roundToOne(num) {
-    return +(Math.round(num + "e+1") + "e-1");
-}
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -15,24 +12,12 @@ app.get('/data', (req, res) => {
     res.sendStatus(200);
 });
 
-app.post('/data', async (req, res) => {
+app.post('/data', (req, res) => {
     console.log(new Date().toISOString(), 'POST /data called from', req.ip, 'data:', JSON.stringify(req.body));
-    const wind = wt.mphToKmh(req.body.windspeedmph);
-    const temp = wt.fahrenheitToCelsius(req.body.tempf);
-    const chill = wt.windchillCelsius(temp, wind);
-    const dewPoint = wt.dewPoint(temp, req.body.humidity);
-    const direction = wt.degreesToDirection(req.body.winddir);
-    const heatIndex = wt.heatIndexCelsius(temp, req.body.humidity);
-    console.log('Temperatur:          ' + roundToOne(temp));
-    console.log('Windgeschwindigkeit: ' + roundToOne(wind));
-    console.log('Gefühlte Temperatur: ' + roundToOne(chill));
-    console.log('Taupunkt:            ' + roundToOne(dewPoint));
-    console.log('Windrichtung:        ' + direction);
-    console.log('Hitzeindex:          ' + Math.round(heatIndex));
-    wd = new weatherdata();
-    wd.tempf = req.body.tempf;
-    await wd.save();
-    res.sendStatus(200);
+    persist.fromPostBody(req.body).then((doc) => { 
+        logger.info('Weather data saved with ObjectID: ' + doc.id);
+        res.sendStatus(200);
+    });
 });
 
 module.exports = app;
