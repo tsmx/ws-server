@@ -1,6 +1,6 @@
 {
   "name": "ws-server",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "weather station server",
   "main": "app.js",
   "author": "tsmx <dev@tsmx.net>",
