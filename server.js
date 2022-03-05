@@ -1,6 +1,5 @@
 const express = require('express');
-const persist = require('./functions/persist');
-const { roundToOne } = require('./utils/numbers');
+const { saveEcowittData } = require('./functions/persist');
 const { logger } = require('./utils/logging');
 
 var app = express();
@@ -16,7 +15,7 @@ app.get('/data', (req, res) => {
 // for Ecowitt protocol type
 app.post('/data', (req, res) => {
     console.log(new Date().toISOString(), 'POST /data called from', req.ip, 'data:', JSON.stringify(req.body));
-    persist.fromPostBody(req.body)
+    saveEcowittData(req.body)
         .then((doc) => {
             logger.info('Weather data saved with ObjectID: ' + doc.id);
             res.sendStatus(200);
