@@ -9,5 +9,18 @@
     "options": "",
     "user": "ENCRYPTED|9c98fbda7fe95f46c3afd717dbcbe0b1|7bfc5d9fbd7f5a07ca024632087f2831",
     "password": "ENCRYPTED|17b984a8dcc152c50a031188fc635126|cf1569fa082e1c689fc5d8f7ae64279e"
+  },
+  "server": {
+    "port": 3000,
+    "dataReception": {
+      "ecowitt": {
+        "enabled": true,
+        "path": "/data"
+      },
+      "wunderground": {
+        "enabled": false,
+        "path": "/data"
+      }
+    }
   }
 }
