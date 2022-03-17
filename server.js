@@ -2,9 +2,11 @@ const express = require('express');
 const conf = require('./conf/config');
 const { saveEcowittData } = require('./functions/persist');
 const { logger } = require('./utils/logging');
+const dailyValues = require('./schemas/dailyvalues');
 
 const ecowittEnabled = conf.server.dataReception.ecowitt.enabled === true;
 const wundergroundEnabled = conf.server.dataReception.wunderground.enabled === true;
+const dataDeliveryEnabled = conf.server.dataDelivery.enabled === true;
 
 var app = express();
 
@@ -34,6 +36,17 @@ if (ecowittEnabled) {
             .catch((err) => {
                 logger.error('Error while saving document: ' + err.message);
                 res.sendStatus(500);
+            });
+    });
+}
+
+// Data delivery
+if (dataDeliveryEnabled) {
+    app.get(conf.server.dataDelivery.dailyValues.path, (req, res) => {
+        dailyValues
+            .find({ _id: { '$eq': '2022-03-05' } })
+            .exec((err, result) => {
+                res.status(200).json(result);
             });
     });
 }

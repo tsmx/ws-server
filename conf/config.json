@@ -21,6 +21,13 @@
         "enabled": false,
         "path": "/data"
       }
+    },
+    "dataDelivery": {
+      "enabled": true,
+      "dailyValues": {
+        "path": "/dailyvalues",
+        "collection": "dailyvalues"
+      }
     }
   }
 }
