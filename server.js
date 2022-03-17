@@ -17,7 +17,7 @@ if (wundergroundEnabled) {
     const wundergroundPath = conf.server.dataReception.wunderground.path;
     logger.info('Wunderground enabled, data reception on path: ' + wundergroundPath);
     app.get(wundergroundPath, (req, res) => {
-        console.log(new Date().toISOString(), 'GET /data called from', req.ip, 'data:', JSON.stringify(req.query));
+        console.log(new Date().toISOString(), 'GET', wundergroundPath, 'called from', req.ip, 'data:', JSON.stringify(req.query));
         res.sendStatus(200);
     });
 }
@@ -27,7 +27,7 @@ if (ecowittEnabled) {
     const ecowittPath = conf.server.dataReception.ecowitt.path;
     logger.info('Ecowitt enabled, data reception on path: ' + ecowittPath);
     app.post(ecowittPath, (req, res) => {
-        console.log(new Date().toISOString(), 'POST /data called from', req.ip, 'data:', JSON.stringify(req.body));
+        console.log(new Date().toISOString(), 'POST', ecowittPath, 'called from', req.ip, 'data:', JSON.stringify(req.body));
         saveEcowittData(req.body)
             .then((doc) => {
                 logger.info('Weather data saved with ObjectID: ' + doc.id);
@@ -42,7 +42,9 @@ if (ecowittEnabled) {
 
 // Data delivery
 if (dataDeliveryEnabled) {
-    app.get(conf.server.dataDelivery.dailyValues.path, (req, res) => {
+    const dailyValuesPath = conf.server.dataDelivery.dailyValues.path;
+    app.get(dailyValuesPath, (req, res) => {
+        console.log(new Date().toISOString(), 'GET', dailyValuesPath, 'called from', req.ip);
         dailyValues
             .find({ _id: { '$eq': '2022-03-05' } })
             .exec((err, result) => {
