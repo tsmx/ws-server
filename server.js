@@ -1,6 +1,7 @@
 const express = require('express');
 const conf = require('./conf/config');
 const { saveEcowittData } = require('./functions/persist');
+const { todayMinMaxTemp } = require('./functions/minmax');
 const { logger } = require('./utils/logging');
 const dailyValues = require('./schemas/dailyvalues');
 
@@ -51,6 +52,7 @@ if (dataDeliveryEnabled) {
                 res.status(200).json(result);
             });
     });
+    app.get('/todayminmaxtemp', todayMinMaxTemp);
 }
 
 module.exports = app;
