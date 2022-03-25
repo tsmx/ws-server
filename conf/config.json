@@ -24,8 +24,13 @@
     },
     "dataDelivery": {
       "enabled": true,
+      "todaysValues": {
+        "path": "/todaysvalues"
+      }
+    },
+    "dataAggregation": {
       "dailyValues": {
-        "path": "/dailyvalues",
+        "minutesInterval": 1,
         "collection": "dailyvalues"
       }
     }

@@ -1,7 +1,8 @@
 const express = require('express');
+const cron = require('cron');
 const conf = require('./conf/config');
-const { saveEcowittData } = require('./functions/persist');
-const { todayMinMaxTemp } = require('./functions/minmax');
+const { saveEcowittData } = require('./functions/persistence');
+const { valuesOfDay } = require('./functions/aggregations');
 const { logger } = require('./utils/logging');
 const dailyValues = require('./schemas/dailyvalues');
 
@@ -43,16 +44,20 @@ if (ecowittEnabled) {
 
 // Data delivery
 if (dataDeliveryEnabled) {
-    const dailyValuesPath = conf.server.dataDelivery.dailyValues.path;
-    app.get(dailyValuesPath, (req, res) => {
-        console.log(new Date().toISOString(), 'GET', dailyValuesPath, 'called from', req.ip);
+    const todaysValuesPath = conf.server.dataDelivery.todaysValues.path;
+    app.get(todaysValuesPath, (req, res) => {
+        logger.info('GET ' + todaysValuesPath + ' called from ' + req.ip);
         dailyValues
             .find({ _id: { '$eq': '2022-03-05' } })
             .exec((err, result) => {
                 res.status(200).json(result);
             });
     });
-    app.get('/todayminmaxtemp', todayMinMaxTemp);
 }
+
+logger.info('Starting data aggregation jobs...');
+new cron.CronJob('0 */' + conf.server.dataAggregation.dailyValues.minutesInterval +' * * * *', valuesOfDay, null, true);
+logger.info('Generation of dailyValues started with interval: ' + conf.server.dataAggregation.dailyValues.minutesInterval + ' minute(s)');
+logger.info('Data aggregation jobs started.');
 
 module.exports = app;

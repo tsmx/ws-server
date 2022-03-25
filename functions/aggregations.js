@@ -1,9 +1,11 @@
 const weatherdata = require('../schemas/weatherdata');
 const { logger } = require('../utils/logging');
+const conf = require('../conf/config').server.dataAggregation;
 
-module.exports.todayMinMaxTemp = function (req, res) {
-    let todayStart = new Date();
-    let todayEnd = new Date();
+module.exports.valuesOfDay = function (day) {
+    if (!day) day = new Date();
+    let todayStart = new Date(day.getTime());
+    let todayEnd = new Date(day.getTime());
     todayStart.setHours(0, 0, 0, 0);
     todayEnd.setHours(23, 59, 59, 999);
     weatherdata.aggregate(
@@ -17,16 +19,16 @@ module.exports.todayMinMaxTemp = function (req, res) {
                     tempMin: 1,
                     tempMinDates: { $map: { input: { $filter: { input: '$items', as: 'x', cond: { $eq: ['$$x.tempC', '$tempMin'] } } }, as: 'xx', in: '$$xx.date' } }
                 }
-            }
+            },
+            { $merge: { into: conf.dailyValues.collection, on: '_id', whenMatched: 'replace', whenNotMatched: 'insert' } }
         ],
         (err, result) => {
             if (err) {
-                logger.error('Error while generating min-max temp for today: ' + err);
-                res.status(500).json({ error: 'could not generate min-max temp' });
+                logger.error('valuesOfDay - failed to generate for ' + day.toLocaleDateString() + ' : ' + err);
+                throw new Error();
             }
             else {
-                logger.info('Min-max temp for today generated');
-                res.status(200).json(result);
+                logger.info('valuesOfDay - successfully generated for ' + day.toLocaleDateString());
             }
         }
     );
