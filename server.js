@@ -55,6 +55,7 @@ if (dataDeliveryEnabled) {
     });
 }
 
+// Periodic data aggregation jobs
 logger.info('Starting data aggregation jobs...');
 new cron.CronJob('0 */' + conf.server.dataAggregation.dailyValues.minutesInterval +' * * * *', valuesOfDay, null, true);
 logger.info('Generation of dailyValues started with interval: ' + conf.server.dataAggregation.dailyValues.minutesInterval + ' minute(s)');
