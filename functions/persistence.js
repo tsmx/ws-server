@@ -34,13 +34,21 @@ module.exports.saveEcowittData = async function (body) {
     wd.uv = roundToZero(body.uv);
     wd.solarRadiation = roundToOne(body.solarradiation);
     wd.rainRateIn = roundToOne(body.rainratein);
+    wd.rainRateMm = roundToOne(wt.inchToMillimeter(body.rainratein));
     wd.rainEventIn = roundToOne(body.eventrainin);
+    wd.rainEventMm = roundToOne(wt.inchToMillimeter(body.eventrainin));
     wd.rainHourlyIn = roundToOne(body.hourlyrainin);
+    wd.rainHourlyMm = roundToOne(wt.inchToMillimeter(body.hourlyrainin));
     wd.rainDailyIn = roundToOne(body.dailyrainin);
+    wd.rainDailyMm = roundToOne(wt.inchToMillimeter(body.dailyrainin));
     wd.rainWeeklyIn = roundToOne(body.weeklyrainin);
+    wd.rainWeeklyMm = roundToOne(wt.inchToMillimeter(body.weeklyrainin));
     wd.rainMonthlyIn = roundToOne(body.monthlyrainin);
+    wd.rainMonthlyMm = roundToOne(wt.inchToMillimeter(body.monthlyrainin));
     wd.rainYearlyIn = roundToOne(body.yearlyrainin);
+    wd.rainYearlyMm = roundToOne(wt.inchToMillimeter(body.yearlyrainin));
     wd.rainTotalIn = roundToOne(body.totalrainin);
+    wd.rainTotalMm = roundToOne(wt.inchToMillimeter(body.totalrainin));
     // save & return promise
     return wd.save();
 }

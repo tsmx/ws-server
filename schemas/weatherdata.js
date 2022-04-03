@@ -22,13 +22,21 @@ var weatherdata = mongoose.Schema({
     uv: Number,
     solarRadiation: Number,
     rainRateIn: Number,
+    rainRateMm: Number,
     rainEventIn: Number,
+    rainEventMm: Number,
     rainHourlyIn: Number,
+    rainHourlyMm: Number,
     rainDailyIn: Number,
+    rainDailyMm: Number,
     rainWeeklyIn: Number,
+    rainWeeklyMm: Number,
     rainMonthlyIn: Number,
+    rainMonthlyMm: Number,
     rainYearlyIn: Number,
-    rainTotalIn: Number
+    rainYearlyMm: Number,
+    rainTotalIn: Number,
+    rainTotalMm: Number
 });
 
 module.exports = mongoose.model('weatherdata', weatherdata, dbconfig.collection); 
