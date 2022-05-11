@@ -2,7 +2,7 @@ var mongoose = require('../utils/db').mongoose;
 const dbconfig = require('../conf/config').db;
 
 var weatherdata = mongoose.Schema({
-    date: { type: Date, default: Date.now, index: true },
+    date: { type: Date, default: Date.now, index: true, expires: '14d' },
     tempF: Number,
     tempC: Number,
     humidity: Number,
