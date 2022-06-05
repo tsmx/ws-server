@@ -44,9 +44,9 @@ if (ecowittEnabled) {
 
 // Data delivery
 if (dataDeliveryEnabled) {
-    const todaysValuesPath = conf.server.dataDelivery.todaysValues.path;
-    app.get(todaysValuesPath + '/:year(\\d{4})-:month(\\d{2})-:day(\\d{2})', (req, res) => {
-        logger.info('GET ' + todaysValuesPath + ' called from ' + req.ip +
+    const dailyValuesPath = conf.server.dataDelivery.dailyValues.path;
+    app.get(dailyValuesPath + '/:year(\\d{4})-:month(\\d{2})-:day(\\d{2})', (req, res) => {
+        logger.info('GET ' + dailyValuesPath + ' called from ' + req.ip +
             ' (Year: ' + req.params.year + ' Month: ' + req.params.month + ' Day: ' + req.params.day + ')');
         dailyValues
             .find({ _id: { '$eq': req.params.year + '-' + req.params.month + '-' + req.params.day } })

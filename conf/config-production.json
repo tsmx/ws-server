@@ -23,7 +23,7 @@
     },
     "dataDelivery": {
       "enabled": true,
-      "todaysValues": {
+      "dailyValues": {
         "path": "/valuesofday"
       }
     },
