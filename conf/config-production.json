@@ -24,7 +24,7 @@
     "dataDelivery": {
       "enabled": true,
       "todaysValues": {
-        "path": "/todaysvalues"
+        "path": "/valuesofday"
       }
     },
     "dataAggregation": {

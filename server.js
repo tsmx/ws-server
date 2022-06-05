@@ -45,10 +45,11 @@ if (ecowittEnabled) {
 // Data delivery
 if (dataDeliveryEnabled) {
     const todaysValuesPath = conf.server.dataDelivery.todaysValues.path;
-    app.get(todaysValuesPath, (req, res) => {
-        logger.info('GET ' + todaysValuesPath + ' called from ' + req.ip);
+    app.get(todaysValuesPath + '/:year(\\d{4})-:month(\\d{2})-:day(\\d{2})', (req, res) => {
+        logger.info('GET ' + todaysValuesPath + ' called from ' + req.ip +
+            ' (Year: ' + req.params.year + ' Month: ' + req.params.month + ' Day: ' + req.params.day + ')');
         dailyValues
-            .find({ _id: { '$eq': '2022-03-05' } })
+            .find({ _id: { '$eq': req.params.year + '-' + req.params.month + '-' + req.params.day } })
             .exec((err, result) => {
                 res.status(200).json(result);
             });
@@ -57,7 +58,7 @@ if (dataDeliveryEnabled) {
 
 // Periodic data aggregation jobs
 logger.info('Starting data aggregation jobs...');
-new cron.CronJob('0 */' + conf.server.dataAggregation.dailyValues.minutesInterval +' * * * *', valuesOfDay, null, true);
+new cron.CronJob('0 */' + conf.server.dataAggregation.dailyValues.minutesInterval + ' * * * *', valuesOfDay, null, true);
 logger.info('Generation of dailyValues started with interval: ' + conf.server.dataAggregation.dailyValues.minutesInterval + ' minute(s)');
 logger.info('Data aggregation jobs started.');
 
