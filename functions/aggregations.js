@@ -40,6 +40,7 @@ module.exports.valuesOfDay = function (day) {
                     tempMaxDates: { $map: { input: { $filter: { input: '$items', as: 'x', cond: { $eq: ['$$x.tempC', '$tempMax'] } } }, as: 'xx', in: '$$xx.date' } },
                     tempMin: 1,
                     tempMinDates: { $map: { input: { $filter: { input: '$items', as: 'x', cond: { $eq: ['$$x.tempC', '$tempMin'] } } }, as: 'xx', in: '$$xx.date' } },
+                    tempAvg: 1,
                     rain: 1,
                     rainWeekly: 1,
                     rainMonthly: 1,
