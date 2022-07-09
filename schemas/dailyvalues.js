@@ -6,6 +6,7 @@ var dailyValues = mongoose.Schema({
     date: { type: Date, index: true },
     tempMax: Number,
     tempMin: Number,
+    tempAvg: Number,
     tempMaxDates: [Date],
     tempMinDates: [Date],
     rain: Number,

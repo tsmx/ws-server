@@ -56,6 +56,15 @@ if (dataDeliveryEnabled) {
     });
 }
 
+app.get("/datetest/:year(\\d{4})-:month(\\d{2})-:day(\\d{2})", (req, res) => {
+    // req.params.year, req.params.month and req.params.day
+    res
+      .status(200)
+      .json({
+        queryDate: new Date(+req.params.year,+(req.params.month)-1, +req.params.day)
+      });
+  });
+
 // Periodic data aggregation jobs
 logger.info('Starting data aggregation jobs...');
 new cron.CronJob('0 */' + conf.server.dataAggregation.dailyValues.minutesInterval + ' * * * *', valuesOfDay, null, true);

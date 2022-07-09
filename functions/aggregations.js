@@ -16,6 +16,7 @@ module.exports.valuesOfDay = function (day) {
                     _id: { $dateToString: { format: '%Y-%m-%d', date: '$date', timezone: 'Europe/Berlin' } },
                     tempMax: { $max: '$tempC' },
                     tempMin: { $min: '$tempC' },
+                    tempAvg: { $avg: '$tempC' },
                     rain: { $max: '$rainDailyMm' },
                     rainWeekly: { $max: '$rainWeeklyMm' },
                     rainMonthly: { $max: '$rainMonthlyMm' },
