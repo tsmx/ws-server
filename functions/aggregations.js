@@ -61,15 +61,10 @@ module.exports.valuesOfDay = function (day) {
                 }
             },
             { $merge: { into: conf.dailyValues.collection, on: '_id', whenMatched: 'replace', whenNotMatched: 'insert' } }
-        ],
-        (err, result) => {
-            if (err) {
-                logger.error('valuesOfDay - failed to generate for ' + day.toLocaleDateString() + ' : ' + err);
-                throw new Error();
-            }
-            else {
-                logger.info('valuesOfDay - successfully generated for ' + day.toLocaleDateString());
-            }
-        }
-    );
-}
+        ])
+        .then(_result => { logger.info('valuesOfDay - successfully generated for ' + day.toLocaleDateString()); })
+        .catch(err => {
+            logger.error('valuesOfDay - failed to generate for ' + day.toLocaleDateString() + ' : ' + err);
+            throw new Error();
+        });
+};

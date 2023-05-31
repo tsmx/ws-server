@@ -51,4 +51,4 @@ module.exports.saveEcowittData = async function (body) {
     wd.rainTotalMm = roundToOne(wt.inchToMillimeter(body.totalrainin));
     // save & return promise
     return wd.save();
-}
+};
